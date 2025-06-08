@@ -1,0 +1,10 @@
+{
+  "name": "teste-k6-monitoria",
+  "version": "1.0.0",
+  "scripts": {
+    "relatorio": "k6 run --out csv=resultado.csv script.js"
+  },
+  "devDependencies": {
+    "k6-reporter": "^3.0.0"
+  }
+}

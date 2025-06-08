@@ -7,17 +7,14 @@ Este projeto consiste em uma API Flask para consulta de dados de CEPs armazenado
 
 ```
 .
-.
-├── app.py                      # API Flask que expõe o endpoint /cep/<cep>
-├── bd.py                       # Script para popular o banco SQLite (ceps.db)
-├── ceps.db                     # Banco SQLite com dados de exemplo
-├── script.js                   # Script de teste de carga com k6
-├── Gráfico_Exemplo/            # Pasta com scripts e arquivos de análise
-│   ├── plot_k6.py              # Script para análise dos resultados (CSV)
-│   ├── plot.html               # Relatório HTML com links para resultados
-│   └── resultado.csv           # (Gerado após o teste) CSV com os dados de execução
-└── package.json                # Script para executar o teste com k6
-
+├── app.py                 # API Flask que expõe o endpoint /cep/<cep>
+├── bd.py                  # Script para popular o banco SQLite (ceps.db)
+├── ceps.db                # Banco SQLite com dados de exemplo
+├── script.js              # Script de teste de carga com k6
+├── plot_k6.py             # Script para análise dos resultados (CSV)
+├── plot.html              # Relatório HTML com links para resultados
+├── package.json           # Script para executar o teste com k6
+└── resultado.csv          # (Gerado após o teste) CSV com os dados de execução
 ```
 
 ## 🚀 Como rodar a aplicação
