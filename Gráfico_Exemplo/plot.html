@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Relatório k6 - Resumo</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 2rem;
+    background: #f4f4f9;
+    color: #333;
+  }
+  h1 {
+    color: #2c3e50;
+    border-bottom: 3px solid #2980b9;
+    padding-bottom: 0.3rem;
+  }
+  section {
+    margin-top: 2rem;
+  }
+  pre {
+    background: #222;
+    color: #eee;
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+  }
+  a {
+    color: #2980b9;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+</style>
+</head>
+<body>
+
+<h1>Relatório Resumo do Teste k6</h1>
+
+<section>
+  <h2>Como usar</h2>
+  <p>Rode o script Python para gerar gráficos e imprimir estatísticas no terminal.</p>
+  <p>Os gráficos salvos como <code>http_req_duration.png</code> e <code>http_req_blocked.png</code> ficarão na mesma pasta.</p>
+  <p>Você pode abrir este arquivo para visualizar informações básicas e acessar o CSV.</p>
+</section>
+
+<section>
+  <h2>Arquivo CSV Original</h2>
+  <p><a href="resultado.csv" download>Baixar resultado.csv</a></p>
+</section>
+
+<section>
+  <h2>Imagens geradas</h2>
+  <ul>
+    <li><a href="http_req_duration.png" target="_blank">Duração média das requisições</a></li>
+    <li><a href="http_req_blocked.png" target="_blank">Tempo médio bloqueado das requisições</a></li>
+  </ul>
+</section>
+
+<section>
+  <h2>Resumo no Terminal</h2>
+  <pre>
+# Rode o script Python para ver aqui as estatísticas resumidas
+  </pre>
+</section>
+
+</body>
+</html>
