@@ -1,1 +1,165 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Relatório resumido dos testes de carga realizados com k6, incluindo estatísticas e gráficos.">
+  <title>Relatório k6 - Resumo</title>
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --accent-color: #2980b9;
+      --background-color: #f4f4f9;
+      --text-color: #333;
+      --code-bg: #222;
+      --code-text: #eee;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    h1, h2 {
+      color: var(--primary-color);
+    }
+
+    h1 {
+      border-bottom: 3px solid var(--accent-color);
+      padding-bottom: 0.3rem;
+      font-size: 2rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    section {
+      margin-top: 2rem;
+      max-width: 800px;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: var(--code-text);
+      padding: 1rem;
+      border-radius: 5px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+
+    a:hover, a:focus {
+      text-decoration: underline;
+      color: #1c6391;
+      outline: none;
+    }
+
+    a:focus {
+      box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.3);
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    @media (prefers-contrast: high) {
+      body {
+        background: #fff;
+        color: #000;
+      }
+      a {
+        color: #0000EE;
+      }
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 id="main-title">Relatório Resumo do Teste k6</h1>
+  </header>
+
+  <main>
+    <section aria-labelledby="como-usar">
+      <h2 id="como-usar">Como usar</h2>
+      <p>Rode o script Python <code>plot_k6.py</code> para gerar gráficos e imprimir estatísticas no terminal.</p>
+      <p>Os gráficos salvos como <code>http_req_duration.png</code>, <code>http_req_blocked.png</code> e <code>http_reqs.png</code> estão disponíveis abaixo.</p>
+      <p>Esta página fornece um resumo das informações e links para os arquivos gerados.</p>
+    </section>
+
+    <section aria-labelledby="arquivo-csv">
+      <h2 id="arquivo-csv">Arquivo CSV Original</h2>
+      <p><a href="resultado.csv" download aria-label="Baixar o arquivo CSV com os resultados dos testes k6">Baixar resultado.csv</a></p>
+    </section>
+
+    <section aria-labelledby="imagens-geradas">
+      <h2 id="imagens-geradas">Imagens geradas</h2>
+      <ul>
+        <li><a href="http_req_duration.png" target="_blank" aria-label="Visualizar gráfico da duração média das requisições">Duração média das requisições</a></li>
+        <li><a href="http_req_blocked.png" target="_blank" aria-label="Visualizar gráfico do tempo médio bloqueado das requisições">Tempo médio bloqueado das requisições</a></li>
+        <li><a href="http_reqs.png" target="_blank" aria-label="Visualizar gráfico da vazão de requisições por segundo">Vazão (requisições por segundo)</a></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="resumo-terminal">
+      <h2 id="resumo-terminal">Resumo no Terminal</h2>
+      <pre aria-label="Exemplo de saída de estatísticas no terminal">
+# Rode o script Python plot_k6.py para ver as estatísticas resumidas
+# Exemplo de saída:
+# Resumo da métrica 'http_req_duration':
+#   Média: 105.62 ms
+#   Mediana: 105.47 ms
+#   Min: 101.93 ms
+#   Máx: 118.12 ms
+#   P95: 108.36 ms
+#   P99: 110.93 ms
+# Resumo da métrica 'http_req_blocked':
+#   Média: 0.54 ms
+#   Mediana: 0.54 ms
+#   Min: 0.00 ms
+#   Máx: 4.62 ms
+#   P95: 0.99 ms
+#   P99: 1.11 ms
+# Resumo da métrica 'http_reqs':
+#   Média: 1.00 reqs (contagem)
+#   Mediana: 1.00 reqs (contagem)
+#   Min: 1.00 reqs (contagem)
+#   Máx: 1.00 reqs (contagem)
+#   P95: 1.00 reqs (contagem)
+#   P99: 1.00 reqs (contagem)
+      </pre>
+    </section>
+  </main>
+
+  <footer>
+    <p>Gerado automaticamente pelo script <code>plot_k6.py</code>. Última atualização: 10 de junho de 2025.</p>
+  </footer>
+</body>
+</html>
