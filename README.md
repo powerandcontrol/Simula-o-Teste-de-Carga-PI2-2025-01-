@@ -13,7 +13,7 @@ Este projeto consiste em uma API Flask para consulta de dados de CEPs armazenado
 │   ├── resultado.csv      # CSV com os dados de execução
 │   ├── http_req_duration.png  # Gráfico de duração das requisições
 │   ├── http_req_blocked.png   # Gráfico de tempo bloqueado
-│   ├── http_reqs.png          # Gráfico de vazão
+│   └── http_reqs.png      # Gráfico de vazão
 
 🚀 Como rodar a aplicação
 
@@ -77,7 +77,7 @@ Imagens: docs/http_req_duration.png, docs/http_req_blocked.png, docs/http_reqs.p
 📄 Relatório Online
 Acesse o relatório interativo em HTML para visualizar os resultados dos testes de carga, incluindo links para os gráficos gerados e o arquivo CSV:
 
-[Link: Relatório de Resultados](https://powerandcontrol.github.io/Simula-o-Teste-de-Carga-PI2-2025-01-/plot.html)
+Link: Relatório de Resultados
 Descrição: Clique no link acima para ver o relatório diretamente no navegador. A página inclui:
 Links para os gráficos de duração, tempo bloqueado e vazão.
 Link para baixar o resultado.csv.
