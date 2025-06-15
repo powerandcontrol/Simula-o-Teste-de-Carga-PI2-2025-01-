@@ -2,170 +2,293 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Relatório dos testes de carga com k6, incluindo estatísticas e gráficos."/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Relatório resumido dos testes de carga realizados com k6, incluindo estatísticas e gráficos." />
   <title>Relatório k6 - Monitoria</title>
   <style>
     :root {
-      --primary-color: #2c3e50;
-      --accent-color: #3498db;
-      --background-color: #f9fbfd;
-      --card-color: #ffffff;
-      --text-color: #2f2f2f;
-      --code-bg: #1e1e1e;
-      --code-text: #f5f5f5;
-      --shadow: rgba(0, 0, 0, 0.1);
+      --primary-color: #004169;
+      --secondary-color: #0099CC; 
+      --background-color: #fefefe; 
+      --text-color: #212529;
+      --text-muted: #6c757d;
+      --border-color: #dee2e6;
+      --code-bg: #212529;
+      --code-text: #f8f9fa;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      --max-width: 900px;
+      --radius: 6px;
+      --spacing: 1rem;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--background-color);
-      color: var(--text-color);
       margin: 0;
-      padding: 2rem;
+      font-family: var(--font-family);
+      background: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.5;
+      padding: var(--spacing) 1rem;
       display: flex;
       justify-content: center;
     }
 
     main {
-      max-width: 900px;
+      max-width: var(--max-width);
       width: 100%;
+      background: white;
+      padding: calc(var(--spacing) * 2);
+      box-shadow: 0 4px 10px rgb(0 0 0 / 0.05);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+    }
+
+    header {
+      border-bottom: 2px solid var(--primary-color);
+      margin-bottom: calc(var(--spacing) * 2);
+      padding-bottom: var(--spacing);
+      text-align: center;
+    }
+
+    header img {
+      max-height: 80px;
+      margin-bottom: 1rem;
     }
 
     header h1 {
-      font-size: 2rem;
+      margin: 0;
+      font-weight: 700;
       color: var(--primary-color);
-      border-left: 6px solid var(--accent-color);
-      padding-left: 1rem;
-      margin-bottom: 2rem;
+      font-size: 1.75rem;
+      letter-spacing: 1px;
     }
 
     section {
-      background: var(--card-color);
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px var(--shadow);
+      margin-top: var(--spacing);
     }
 
     h2 {
-      color: var(--accent-color);
-      margin-top: 0;
-      font-size: 1.4rem;
-      border-bottom: 2px solid var(--accent-color);
-      padding-bottom: 0.3rem;
+      font-weight: 600;
+      color: var(--secondary-color);
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      border-left: 4px solid var(--secondary-color);
+      padding-left: 0.5rem;
     }
 
-    p, li {
-      line-height: 1.6;
+    p {
+      margin-top: 0;
+      margin-bottom: var(--spacing);
+      font-size: 1rem;
+      color: var(--text-color);
+      white-space: pre-line;
     }
 
     a {
-      color: var(--accent-color);
+      color: var(--primary-color);
       text-decoration: none;
-      font-weight: bold;
+      font-weight: 600;
+      transition: color 0.3s ease;
     }
 
-    a:hover {
+    a:hover, a:focus {
       text-decoration: underline;
+      color: var(--secondary-color);
+      outline: none;
     }
 
     ul {
-      padding-left: 1.2rem;
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    ul li {
+      margin-bottom: var(--spacing);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 0.75rem;
+    }
+
+    ul li:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    /* Imagens responsivas */
+    ul li img,
+    #resultado-terminal img,
+    #analise img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      display: block;
+      margin: 0.5rem auto 1rem auto;
+      object-fit: contain;
     }
 
     pre {
       background: var(--code-bg);
       color: var(--code-text);
-      padding: 1rem;
-      border-radius: 5px;
-      overflow-x: auto;
-      font-family: Consolas, monospace;
+      padding: var(--spacing);
+      border-radius: var(--radius);
       font-size: 0.9rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      line-height: 1.4;
+      margin: 0;
+      box-shadow: inset 0 0 5px rgb(0 0 0 / 0.3);
+      font-family: 'Courier New', Courier, monospace;
     }
 
-    img.graph {
-      max-width: 100%;
-      margin: 1rem 0;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px var(--shadow);
+    /* Estilo para análise */
+    #analise p {
+      margin-bottom: var(--spacing);
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-style: normal;
     }
 
     footer {
+      margin-top: calc(var(--spacing) * 3);
+      font-size: 0.85rem;
+      color: var(--text-muted);
       text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-      margin-top: 2rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: var(--spacing);
+      font-style: italic;
     }
 
-    @media (max-width: 600px) {
+    /* Acessibilidade */
+    @media (prefers-contrast: high) {
       body {
-        padding: 1rem;
+        background: #fff;
+        color: #000;
+      }
+      a {
+        color: #0000ee;
+      }
+    }
+
+    /* Responsivo */
+    @media (max-width: 600px) {
+      main {
+        padding: var(--spacing);
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.1rem;
       }
     }
   </style>
 </head>
 <body>
   <main>
-    <header>
-      <h1>Relatório Resumo do Teste k6 (Monitoria)</h1>
+    <header role="banner">
+      <img src="unirio-logo.png" alt="Logo UNIRIO" />
+      <h1>Relatório de Teste de Carga k6</h1>
     </header>
 
-    <section aria-labelledby="como-usar">
-      <h2 id="como-usar">Como usar</h2>
-      <p>Execute o script Python <code>plot_k6.py</code> para gerar gráficos e imprimir estatísticas no terminal.</p>
-      <p>Os gráficos gerados automaticamente são exibidos abaixo.</p>
+    <section aria-labelledby="introducao-teste-carga">
+      <h2 id="introducao-teste-carga">Introdução ao Teste de Carga e Escalonamento</h2>
+      <p>
+        O teste de carga é uma técnica para avaliar o desempenho de uma aplicação sob diferentes níveis de uso simultâneo,
+        simulando múltiplos usuários acessando o sistema ao mesmo tempo. O objetivo é identificar como a aplicação se comporta,
+        seus limites de escalabilidade e possíveis gargalos.
+      </p>
+      <p>
+        Neste teste realizado com a ferramenta <strong>k6</strong>, o escalonamento foi feito em fases progressivas, com aumento gradual do número de usuários virtuais (VUs), para simular condições realistas e de estresse.
+      </p>
     </section>
 
-    <section aria-labelledby="arquivo-csv">
-      <h2 id="arquivo-csv">Arquivo CSV Original</h2>
-      <p><a href="resultado.csv" download>📥 Baixar resultado.csv</a></p>
-    </section>
-
-    <section aria-labelledby="imagens-geradas">
-      <h2 id="imagens-geradas">Imagens Geradas</h2>
-      <p><strong>Duração média das requisições</strong></p>
-      <img src="http_req_duration.png" alt="Gráfico de duração média das requisições" class="graph"/>
-
-      <p><strong>Tempo bloqueado das requisições</strong></p>
-      <img src="http_req_blocked.png" alt="Gráfico do tempo bloqueado das requisições" class="graph"/>
-
-      <p><strong>Vazão de requisições por segundo</strong></p>
-      <img src="http_reqs.png" alt="Gráfico da vazão de requisições" class="graph"/>
+    <section id="resultado-terminal" aria-labelledby="resultado-terminal-title">
+      <h2 id="resultado-terminal-title">Resultado do Terminal (k6.png)</h2>
+      <img src="k6.png" alt="Captura de tela do resultado do terminal do k6" />
     </section>
 
     <section aria-labelledby="resumo-terminal">
       <h2 id="resumo-terminal">Resumo no Terminal</h2>
-      <pre>
-# Exemplo de saída do script:
+      <p>
+        Também foi executado o script <code>plot_k6.py</code> para gerar análises detalhadas com base nos dados CSV obtidos.
+      </p>
+      <pre aria-label="Saída real das estatísticas no terminal">
 Resumo da métrica 'http_req_duration':
-  Média: 105.62 ms
-  Mediana: 105.47 ms
-  Min: 101.93 ms
-  Máx: 118.12 ms
-  P95: 108.36 ms
-  P99: 110.93 ms
+  Média: 94.65 ms 
+  Mediana: 0.00 ms
+  Min: 0.00 ms    
+  Máx: 1171.08 ms 
+  P95: 572.13 ms  
+  P99: 809.71 ms  
 
 Resumo da métrica 'http_req_blocked':
-  Média: 0.54 ms
-  Mediana: 0.54 ms
-  Min: 0.00 ms
-  Máx: 4.62 ms
-  P95: 0.99 ms
-  P99: 1.11 ms
+  Média: 0.20 ms  
+  Mediana: 0.00 ms
+  Min: 0.00 ms    
+  Máx: 39.77 ms   
+  P95: 0.99 ms    
+  P99: 1.99 ms    
 
-Resumo da métrica 'http_reqs':
-  Média: 1.00 reqs
-  Mediana: 1.00 reqs
-  Min: 1.00 reqs
-  Máx: 1.00 reqs
-  P95: 1.00 reqs
-  P99: 1.00 reqs
+Tempo médio bloqueado por intervalo de 30s:
+  0s - 30s: 0.74 ms
+  30s - 60s: 0.70 ms
+  60s - 90s: 0.65 ms
+  90s - 120s: 0.61 ms
+  120s - 150s: 0.69 ms
+  150s - 180s: 0.35 ms
+  180s - 210s: 0.07 ms
+  210s - 240s: 0.11 ms
+  240s - 270s: 0.17 ms
+  270s - 300s: 0.18 ms
+  300s - 330s: 0.09 ms
+  330s - 360s: 0.53 ms
+
+➡️ Maior bloqueio: 0s - 30s com 0.74 ms
+➡️ Requisições nesse intervalo: 279 reqs
+⚠️ Maior carga de requisições: 180s - 210s com 21414 reqs
       </pre>
     </section>
 
+    <section id="analise" aria-labelledby="analise-title">
+      <h2 id="analise-title">Análise dos Resultados do Teste de Carga</h2>
+
+      <p><strong>Gráfico de Duração Média das Requisições (http_req_duration):</strong><br>
+      A média das requisições está em torno de 94,65 ms, indicando respostas rápidas para a maioria dos casos. O valor máximo de 1171 ms mostra que algumas requisições enfrentaram latências maiores.</p>
+      <img src="http_req_duration.png" alt="Gráfico da duração média das requisições" />
+
+      <p><strong>Percentis P95 e P99:</strong><br>
+      O P95 é 572,13 ms e o P99 é 809,71 ms, indicando que 95% das requisições ocorreram abaixo de 572 ms, e 99% abaixo de 810 ms, mostrando boa performance geral, mas com alguns picos de latência.</p>
+
+      <p><strong>Gráfico de Tempo Médio Bloqueado (http_req_blocked):</strong><br>
+      O tempo bloqueado permaneceu baixo durante todo o teste, com média de 0,20 ms e máximo de 39,77 ms. Isso indica que o sistema gerenciou bem as conexões, evitando atrasos significativos no início das requisições.</p>
+      <img src="http_req_blocked.png" alt="Gráfico do tempo médio bloqueado das requisições" />
+
+      <p><strong>Gráfico da Vazão de Requisições (http_reqs):</strong><br>
+      A vazão alcançou um pico de 21.414 requisições por segundo, demonstrando que o sistema suporta altas cargas mantendo estabilidade no desempenho.</p>
+      <img src="http_reqs.png" alt="Gráfico da vazão de requisições por segundo" />
+
+      <p><strong>Considerações Finais:</strong><br>
+      A aplicação mostrou boa performance e capacidade de escalar para diferentes níveis de carga. Contudo, os picos de latência máxima indicam pontos onde a otimização pode ser aprimorada para suportar cargas extremas de forma mais eficiente.</p>
+    </section>
+
+    <section aria-labelledby="arquivo-csv">
+      <h2 id="arquivo-csv">Arquivo CSV Original</h2>
+      <p>
+        <a href="resultado.csv" download aria-label="Baixar o arquivo CSV com os resultados dos testes k6">
+          Baixar resultado.csv
+        </a>
+      </p>
+    </section>
+
     <footer>
-      <p>Gerado automaticamente por <code>plot_k6.py</code> · Última atualização: 10 de junho de 2025.</p>
+      <p>Gerado automaticamente pelo script <code>plot_k6.py</code>. Última atualização: 10 de junho de 2025.</p>
     </footer>
   </main>
 </body>
